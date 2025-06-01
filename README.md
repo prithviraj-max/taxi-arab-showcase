@@ -27,79 +27,96 @@ It has separate mobile apps for **customers** and **drivers**, and the backend i
 
 ### ✅ Rebuilt the Ride Invitation Logic
 
-- Completely rewrote the **driver assignment cycle**
 - Switched from 1-by-1 to **3-by-3 batch invitations**
-- Made retry count dynamic using a `MAX_RETRY_COUNT` setting in the DB
-- Added logic to auto-cancel invites when they reach the limit
+- Made retry count dynamic using a DB `MAX_RETRY_COUNT` setting
+- Auto-expired pending invites once ride was accepted or maxed out
 
 ### ✅ Queues & Job Optimization
 
-- Used **Redis** as `queue` driver for better scalability
-- Optimized job dispatching using `dispatch($rideId)` over model binding
-- Prevented duplicate queue jobs and stopped jobs immediately when needed
-- Refactored `SearchForDriverJob` and added `cancelQueuedJob()` method
+- Used **Redis** queue with Laravel Horizon
+- Prevented duplicate jobs, added immediate cancel logic
+- Refactored `SearchForDriverJob` & improved job scheduling
 
-### ✅ Agent/Driver Presence Logic
+### ✅ Driver Presence & Status
 
-- Implemented **online/offline driver system**
-- Added `is_online` field to the drivers table
-- Excluded offline drivers from receiving ride invitations
-- Suggested & applied production-safe solution to reset driver tokens
+- Implemented **online/offline system** for drivers
+- Integrated token-based presence tracking
+- Dynamically filtered offline drivers from ride invitations
 
-### ✅ Admin Dashboard Enhancements
+### ✅ Admin Dashboard Features
 
-- Built **real-time stats tracking** for dashboard
-- Improved ride analytics by filtering out non-accepted rides
-- Added **export to Excel** for driver phone numbers
-- Added `acceptance_status` filters for ride reports
+- Real-time stats & metrics for active rides/drivers
+- Exported driver phone numbers to Excel
+- Added ride filters based on `acceptance_status`
 
-### ✅ Production-Level Debugging & Deployment
+### ✅ Safe Production Deployment
 
-- Debugged live ride flow on production safely with `info()` logs
-- Performed all deployments **after midnight** to avoid user interruption
-- Maintained stability during updates to queue workers, logic & database
+- Performed live debugging with `info()` logs
+- Deployed at **midnight only** to avoid disrupting real users
+- Rolled out ride cycle refactors without any downtime
 
 ---
 
-## 📊 Real-Time Chat & Notifications
+## 📸 Screenshots
 
-- Used **Pusher** for real-time ride updates between user/driver apps
-- Maintained socket presence logic, channel subscriptions, and events
+<p align="center">
+  <img src="screenshots/landing-page.jpg" width="260" />
+  <img src="screenshots/ride-location-selection.jpg" width="260" />
+  <img src="screenshots/ride-waiting.jpg" width="260" />
+</p>
+<p align="center">
+  <img src="screenshots/ride-approval.jpg" width="260" />
+  <img src="screenshots/ride-during.jpg" width="260" />
+  <img src="screenshots/help-support.jpg" width="260" />
+</p>
+
+---
+
+## 📊 Real-Time System
+
+- Built with **Pusher** for instant socket communication
+- Drivers and customers receive status updates in real time
+- Laravel backend manages socket channel joins, events & logging
 
 ---
 
 ## ✅ Results
 
-- The ride cycle is now stable, scalable, and auto-recovers from failures
-- Queue jobs are optimized and cleared on success
-- The dashboard reflects **accurate ride/driver stats**
-- Feature delivery continued **without any downtime for real users**
+- 🚗 Ride cycle now works with full stability under load
+- 📉 Reduced failure rate of unassigned rides
+- 🚀 Queues cleared cleanly & workers optimized
+- 📊 Dashboard is more insightful & useful to ops team
 
 ---
 
 ## 🏗 Tech Stack
 
-| Area | Tech |
-|------|------|
-| Backend | Laravel (PHP 8.x), MySQL |
-| Queue | Redis, Laravel Horizon |
-| Real-time | Pusher |
-| Auth | Laravel Sanctum |
-| Debugging | Laravel logs, Horizon |
-| Mobile Apps | iOS (Swift), Android (Kotlin) |
+| Layer     | Tech                              |
+|----------|------------------------------------|
+| Backend  | Laravel (PHP 8.x), MySQL           |
+| Queues   | Redis, Laravel Horizon             |
+| Real-time| Pusher                             |
+| Auth     | Laravel Sanctum                    |
+| Logs     | Laravel Logs, `info()`, Horizon    |
+| Mobile   | iOS (Swift), Android (Kotlin)      |
+
+---
+
+## 📂 Docs
+
+- [`docs/ride-cycle.md`](./docs/ride-cycle.md): Ride invitation flow breakdown (drivers, logic, batching)
 
 ---
 
 ## 📦 Repo Purpose
 
-This repo is a **summary and work showcase only**.  
-No source code is included due to ownership by the company.  
-I built and maintained this system as part of my job at **Dinamo Egypt**.
+This repo is a **showcase only**.  
+I was responsible for improving core backend logic on a real app for a real client while employed at **Dinamo Egypt**.  
+No source code is shared due to ownership policies.
 
 ---
 
-## 👋 Let’s Talk
+## 💬 Let’s Talk
 
-If you'd like to know more about my role in this system or how I tackled specific features like the ride assignment cycle or real-time queues — feel free to reach out!
-
-I'm happy to break things down in interviews or DMs.
+Want to dive into how I implemented 3-by-3 invitation logic? Or how we scaled the ride cycle using Redis queues?  
+Feel free to DM or ask me in interviews — happy to share insights 🙌
